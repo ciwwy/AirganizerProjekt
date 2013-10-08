@@ -15,24 +15,29 @@ import javafx.scene.Parent;
  */
 public class MaskSwitcher {
     
-    
+    // Neue Hashmap erzeugen
     private static Map<String, Parent> allViews
-            = new HashMap<String, Parent>();
+            = new HashMap<>();
     
-    private static LauncherMaskController LMCont;
+    // Adresse des Controller-Objekts
+    private static LauncherMaskController LMC;
     
-    public static void addLMC (LauncherMaskController LMC){
-        LMCont = LMC;
+    
+    public static void setReference (LauncherMaskController LMContr){
+        LMC = LMContr;
     }
     
-    public static LauncherMaskController getLMC(){
-        return LMCont;
+    public static LauncherMaskController getReference(){
+        return LMC;
     }
     
+    // Werte in Hashmap speichern
     public static void addView(String name, Parent p) {
         allViews.put(name, p);
     }
     
+    
+    //Werte aus Hashmap laden
     public static Parent getView(String name) {
         
         return(allViews.get(name));

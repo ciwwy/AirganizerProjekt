@@ -4,6 +4,7 @@
  */
 package airganizer.launcher.controller;
 
+import airganizer.launcher.Launcher;
 import airganizer.mysql.request.LoginCheck;
 
 import java.net.URL;
@@ -40,6 +41,14 @@ public class LoginMaskController implements Initializable {
     private TextField txtUser;
     
     
+    // Application weitergeben
+    private Launcher app;
+    
+    public void setApp(Launcher app){
+        this.app = app;
+    }
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'LoginMask.fxml'.";
@@ -59,8 +68,14 @@ public class LoginMaskController implements Initializable {
                         List user = l.start(txtUser.getText(), txtPwd.getText());
                         
                         System.out.println("LoginMask: " + " UserID: " + user.get(1) + " Username: " + user.get(2) + " Usertype: " + user.get(3));
-                                       
+                        
+                        // Methode der Start-Klasse (Application)
+                        app.loginVersuch(txtUser.getText(), txtPwd.getText());
             }
         });
-    }    
+    }
+    
+    
+    
+
 }

@@ -10,12 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+
+import airganizer.mysql.*;
 
 /**
  * FXML Controller class
@@ -54,7 +55,6 @@ public class ConfigMaskController implements Initializable {
         private AnchorPane myAnchorPane;
 
         
-        
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,7 +77,26 @@ public class ConfigMaskController implements Initializable {
             @Override
             public void handle(ActionEvent e){
                 
+                String address = txtAddress.getText();
+                String dbname = txtDBName.getText();
+                String dbuser = txtUsername.getText();
+                String dbpwd = txtPwd.getText();
                 
+                // Testobjekt erzeugen
+                DBTest dbtest = new DBTest();
+                
+                // Verbindung mit neuen Werten testen
+                Boolean connected = dbtest.test(address, dbname, dbuser, dbpwd);
+                
+                // Ergebnis anzeigen
+                MaskSwitcher.getReference().connectionStatus(connected);
+                
+                // Bei Erfolg, neue Werte in Properties-Datei speichern
+                if(true){
+                    DBConnection.setProperties(address, dbname, dbuser, dbpwd);
+                }
+ 
+                 
             }
         });
         
@@ -87,7 +106,8 @@ public class ConfigMaskController implements Initializable {
             
             @Override
             public void handle(ActionEvent e){
-                MaskSwitcher.getLMC().startmask(MaskSwitcher.getView("login"));
+                
+                MaskSwitcher.getReference().switchMask("login");
                 
                 
             }

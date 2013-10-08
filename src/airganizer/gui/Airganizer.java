@@ -46,7 +46,8 @@ public class Airganizer extends Application {
                  
         Scene scene = new Scene(root);
         
-        stage.setScene(scene);      
+        stage.setScene(scene);
+        stage.setTitle(WINDOW_TITLE);
         stage.show();
     }
 

@@ -4,6 +4,7 @@
  */
 package airganizer.launcher.controller;
 
+import airganizer.launcher.Launcher;
 import airganizer.mysql.DBTest;
 import airganizer.mysql.DBConnection;
 import airganizer.mysql.request.UserInfo;
@@ -50,6 +51,19 @@ public class LauncherMaskController implements Initializable {
 
         @FXML
         private Text textDBStatus;
+        
+        
+        private static LauncherMaskController instance;
+        
+        // Instanz speichern (Klassenvariable)
+        public LauncherMaskController(){
+            instance = this;
+        }
+     
+        // Instanz weitergeben
+        public static LauncherMaskController getInstance(){
+          return instance;
+        }
        
         
     @Override
@@ -63,12 +77,10 @@ public class LauncherMaskController implements Initializable {
 
         System.out.println("Launcher Initialized");
         
+        
         // Konfigurationen laden
         if(DBConnection.getProperties()){System.out.println("Properties loaded");}
-        
-        // Objektadresse speichern
-        MaskSwitcher.addLMC(this);
-        
+              
         
         ///// onAction Listeners /////
         
@@ -116,12 +128,25 @@ public class LauncherMaskController implements Initializable {
             }
         });
         
-        
-          
-        
         //Verbindung zur DB Überprüfen
         DBTest dbtest = new DBTest();
-        if(dbtest.test()){
+        connectionStatus(dbtest.test());
+           
+
+    }
+    
+     
+     // Wechselt die Maske des aktuellen LauncherMaskController Objekts
+     public void switchMask(String mask) {
+         Parent p = MaskSwitcher.getView(mask);
+         myBorderPane.setCenter(p);
+     }
+     
+     
+     // Aktualisiert die Verbindungsinformation
+     public void connectionStatus(Boolean b){
+         
+         if(b){
             textDBStatus.setText("Erfolgreich");
             textDBStatus.setFill(Color.GREEN);
         } else {
@@ -129,13 +154,7 @@ public class LauncherMaskController implements Initializable {
             textDBStatus.setText("Fehlerhaft");
             textDBStatus.setFill(Color.RED);
         }
-            
-    
-    }
-    
-     public void startmask(Parent p) {
-         myBorderPane.setCenter(p);
+         
      }
         
-  
 }

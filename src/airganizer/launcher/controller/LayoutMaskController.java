@@ -38,7 +38,7 @@ public class LayoutMaskController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        assert myBorderPane != null : "fx:id=\"myBorderPane\" was not injected: check your FXML file 'LoginMask.fxml'.";
+        assert myBorderPane != null : "fx:id=\"myBorderPane\" was not injected: check your FXML file 'LayoutMask.fxml'.";
         
         
         //onAction Listeners
