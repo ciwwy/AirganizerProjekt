@@ -1,0 +1,26 @@
+/* 
+    Document   : LoginMask
+    Created on : 04.10.2013, 13:13:12
+    Author     : pat
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.leftside { 
+    -fx-background-color: #3ac0fc;
+    -fx-border-color: #888888;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    
+}
+
+
+.bottom {
+    
+    -fx-background-color: #c3c3c3;
+    -fx-border-color: #888888;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    
+    
+}

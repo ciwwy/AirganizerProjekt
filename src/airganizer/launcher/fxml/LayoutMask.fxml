@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="airganizer.launcher.controller.LayoutMaskController">
+  <children>
+    <BorderPane fx:id="myBorderPane" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <VBox id="" prefHeight="160.0" prefWidth="362.0" BorderPane.alignment="TOP_LEFT">
+          <children>
+            <VBox alignment="BOTTOM_LEFT" prefHeight="83.00009999999747" prefWidth="278.0">
+              <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Airganizer v.0.1">
+                  <font>
+                    <Font name="System Bold" size="13.0" fx:id="x1" />
+                  </font>
+                </Text>
+                <Text scaleX="1.0031734932795173" scaleY="1.1275118629404361" strokeType="OUTSIDE" strokeWidth="0.0" text="Layout auswählen.">
+                  <font>
+                    <Font size="16.0" />
+                  </font>
+                </Text>
+              </children>
+              <padding>
+                <Insets bottom="15.0" />
+              </padding>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="342.0">
+              <children>
+                <Label text="Benutzername:">
+                  <labelFor>
+                    <TextField fx:id="txtUser" maxWidth="-Infinity" prefWidth="200.0" />
+                  </labelFor>
+                </Label>
+                <fx:reference source="txtUser" />
+              </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="342.0">
+              <children>
+                <Label text="Passwort:">
+                  <labelFor>
+                    <PasswordField fx:id="txtPwd" maxWidth="-Infinity" prefWidth="200.0" />
+                  </labelFor>
+                </Label>
+                <fx:reference source="txtPwd" />
+              </children>
+            </VBox>
+            <VBox alignment="TOP_LEFT" prefHeight="80.0" prefWidth="342.0">
+              <children>
+                <Button fx:id="btnLogin" mnemonicParsing="false" text="Anmelden" />
+              </children>
+              <padding>
+                <Insets top="10.0" />
+              </padding>
+            </VBox>
+          </children>
+          <padding>
+            <Insets left="25.0" />
+          </padding>
+        </VBox>
+      </center>
+    </BorderPane>
+  </children>
+  <stylesheets>
+    <URL value="@LauncherMask.css" />
+  </stylesheets>
+</AnchorPane>
