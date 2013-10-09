@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package airganizer.launcher.controller;
+package airganizer.gui.controller;
 
-import airganizer.launcher.Launcher;
-import airganizer.mysql.request.LoginCheck;
+import airganizer.gui.Launcher;
+import airganizer.dba.select.LoginCheck;
 
 import java.net.URL;
 import java.util.List;
@@ -20,10 +16,12 @@ import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
+ * Login-Maske
  *
  * @author pat
  */
-public class LoginMaskController implements Initializable {
+
+public class LauncherLogin implements Initializable {
 
     @FXML
     private ResourceBundle resources;
@@ -40,13 +38,6 @@ public class LoginMaskController implements Initializable {
     @FXML
     private TextField txtUser;
     
-    
-    // Application weitergeben
-    private Launcher app;
-    
-    public void setApp(Launcher app){
-        this.app = app;
-    }
     
     
     @Override
@@ -70,7 +61,7 @@ public class LoginMaskController implements Initializable {
                         System.out.println("LoginMask: " + " UserID: " + user.get(1) + " Username: " + user.get(2) + " Usertype: " + user.get(3));
                         
                         // Methode der Start-Klasse (Application)
-                        app.loginVersuch(txtUser.getText(), txtPwd.getText());
+                        Launcher.getInstance().loginVersuch(txtUser.getText(), txtPwd.getText());
             }
         });
     }

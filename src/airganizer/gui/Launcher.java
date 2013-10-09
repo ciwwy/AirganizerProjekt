@@ -1,10 +1,10 @@
-package airganizer.launcher;
+package airganizer.gui;
 
-import airganizer.launcher.controller.LauncherMaskController;
-import airganizer.launcher.controller.LoginMaskController;
-import airganizer.launcher.controller.MaskSwitcher;
-import airganizer.model.Benutzer;
-import airganizer.mysql.request.LoginCheck;
+import airganizer.gui.controller.LauncherFrame;
+import airganizer.gui.controller.LauncherLogin;
+import airganizer.gui.controller.LauncherMaskSwitcher;
+import airganizer.logic.model.Benutzer;
+import airganizer.dba.select.LoginCheck;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -25,22 +25,38 @@ import javafx.stage.Stage;
 
 public class Launcher extends Application {
     
+    // Deklaration der Variablen
     private Stage stage;
     private Benutzer benutzer;
     private static Launcher instance;
     
-    // Deklaration der Konstanten
-    final String FXML_PATH = "/airganizer/launcher/fxml/";
-    final String WINDOW_TITLE = "Airganizer v.0.1 - Launcher";
-    final int WINDOW_WIDTH = 600;
-    final int WINDOW_HEIGHT = 400;
+    //// Deklaration der Konstanten ////
+    // Pfad der FXML-Dateien
+    private final String FXML_PATH = "/airganizer/gui/fxml/";
+    
+    // Launcher FXML-Dateien
+    private final String LAUNCHER_FRAME = "LauncherFrame.fxml";
+    
+    // Flugbuchen FXML-Dateien
+    private final String MAIN_MENU = "Hauptmenue.fxml";
     
     
-    // Instanz speichern (Klassenvariable)
+    // Weitere FXML-Dateien...
+    // private final String VERWALTEN_FLUGANLEGEN = "xxx.fxml";
+    
+    // Eigenschaften des Fensters
+    final String WINDOW_TITLE_LAUNCHER = "Airganizer v.0.1 - Launcher";
+    final String WINDOW_TITLE_BUCHEN = "Airganizer v.0.1 - Flug buchen";
+    final String WINDOW_TITLE_VERWALTEN = "Airganizer v.0.1 - Flüge verwalten";
+    final String WINDOW_TITLE_ADMIN = "Airganizer v.0.1 - Benutzer administrieren";
+    
+    
+    //// Instanz erstellen und Zugriff ermöglichen ////
+
+    // Konstruktor 
     public Launcher(){
         instance = this;
     }
-    
     
     // Instanz weitergeben
     public static Launcher getInstance(){
@@ -48,29 +64,33 @@ public class Launcher extends Application {
     }
     
     
-    // Startmethode
+    //// Startmethode - Erstellt das Fenster ////
     
     @Override
     public void start(Stage primaryStage) throws IOException{
         
-        
-        
-        // Primary Stage
+        // PrimaryStage-Instanz speichern
         stage = primaryStage;
         
-        launcher();
-        //flugbuchen();
+        // Startet Launcher mit Loginmaske
+        anmelden();
         
+        // Erstellt das Fenster
         primaryStage.show();
         
     }
     
     
-    private Parent szeneWechseln (String fxml) throws Exception{
+    //// Methode erzeugt ein Parent-Objekt durch FXML ////
+    
+    private Parent szeneWechseln (String fxml, String title) throws Exception{
         
         Scene scene = stage.getScene();
+        Parent p_main;
         
+        System.out.println(fxml);
         ///// FXML-Dateien laden /////
+        
         
         // -- Launcher-Maske (BorderPane, Center leer)
         
@@ -79,73 +99,45 @@ public class Launcher extends Application {
         
         // Location setzen
         URL location = getClass().getResource(fxml);
-        System.out.println(FXML_PATH+fxml);
+        
         floader.setLocation(location);
               
         // Parent element erzeugen
-        Parent p_main = (Parent) floader.load(getClass().getResource(fxml).openStream());
-        
-        // Controller-Objekt erhalten mit getController()
-        //LauncherMaskController LMC = (LauncherMaskController) floader.getController();
-        
-        // Objektadresse in MaskSwitcher speichern
-        //MaskSwitcher.setReference(LMC);
-        
-        
-        // -- Untermasken (BorderPane, nur Center)
-        //Parent subMaskLogin = (Parent) floader2 FXMLLoader.load(getClass().getResource(FXML_PATH + "LoginMask.fxml"));  
-        
-        // FXMLLoader erzeugen
-        FXMLLoader floader2 = new FXMLLoader();
-        URL location2 = getClass().getResource(FXML_PATH + "LoginMask.fxml");
-        System.out.println(FXML_PATH+fxml);
-        floader2.setLocation(location2);
-              
-        // Parent element erzeugen
-        Parent subMaskLogin = (Parent) floader2.load(getClass().getResource(FXML_PATH + "LoginMask.fxml").openStream());
-        
-        // Controller-Objekt erhalten mit getController()
-        LoginMaskController LoMC = floader2.getController();
-        LoMC.setApp(this);
-        
-        Parent subMaskConfig = FXMLLoader.load(getClass().getResource(FXML_PATH + "ConfigMask.fxml"));
-        Parent subMaskLayout = FXMLLoader.load(getClass().getResource(FXML_PATH + "LayoutMask.fxml"));
-        
-        // Elemente in Hashmap speichern        
-        MaskSwitcher.addView("login", subMaskLogin);
-        MaskSwitcher.addView("config", subMaskConfig);
-        MaskSwitcher.addView("layout", subMaskLayout);
-        
+        p_main = (Parent) floader.load(getClass().getResource(fxml).openStream());
+   
         
         ///// Fenster erzeugen /////
         if(scene == null){
             // Scene erzeugen
             scene = new Scene(p_main);
-                    //,WINDOW_WIDTH, WINDOW_HEIGHT);
-        
+
             // Scene in Stage einbetten
-            stage.setTitle(WINDOW_TITLE);
+            stage.setTitle(title);
             stage.setScene(scene);
             
             
             
         } else {
             stage.getScene().setRoot(p_main);
+            stage.setTitle(title);
         }
         
         
         stage.sizeToScene();
         
         // Erste subMask einsetzen
-        LauncherMaskController.getInstance().switchMask("login");
+        LauncherFrame.getInstance().setLoginMask();
         
         return p_main;
     }
     
     
-    private void launcher(){
+    private void anmelden(){
         try {
-             szeneWechseln("/airganizer/launcher/fxml/LauncherMask.fxml");
+            
+            // LauncherFrame laden
+            szeneWechseln(FXML_PATH + LAUNCHER_FRAME, WINDOW_TITLE_LAUNCHER);
+            
         } catch (Exception e){
             System.err.println(e);
         }
@@ -154,9 +146,12 @@ public class Launcher extends Application {
     
     private void flugbuchen(){
         try {
-             szeneWechseln("/airganizer/gui/fxml/Hauptmenue.fxml");
-             System.out.println("FLUGBUCHEN!! :D:D:D...");
+            
+            // MainMenu laden
+            szeneWechseln(FXML_PATH + MAIN_MENU, WINDOW_TITLE_BUCHEN);
+             
         } catch (Exception e){
+            
             System.err.println(e);
             System.err.println("FEHLER bei Flugbuchen...");
 
@@ -165,6 +160,7 @@ public class Launcher extends Application {
     }
     
     
+    // Benutzerauthetifizierung
     public boolean loginVersuch(String uid, String pwd){
         
         LoginCheck login = new LoginCheck();

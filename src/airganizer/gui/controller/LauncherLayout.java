@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package airganizer.launcher.controller;
+package airganizer.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
  * @author pat
  */
 
-public class LayoutMaskController implements Initializable {
+public class LauncherLayout implements Initializable {
 
                 
         @FXML

@@ -5,10 +5,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 
-public class MenueController {
+public class MenueController implements Initializable{
 
     @FXML
     private ResourceBundle resources;
@@ -23,8 +24,8 @@ public class MenueController {
     private Button btn_FlugVerwalten;
 
 
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         assert btn_FlugBuchen != null : "fx:id=\"btn_FlugBuchen\" was not injected: check your FXML file 'Menue.fxml'.";
         assert btn_FlugVerwalten != null : "fx:id=\"btn_FlugVerwalten\" was not injected: check your FXML file 'Menue.fxml'.";
 
@@ -32,7 +33,7 @@ public class MenueController {
 
             @Override
             public void handle(ActionEvent t) {
-                  HauptmenueController.switchMask("m_FlugSuchen");
+                  HauptmenueController.getInstance().setFlugsuche();
             }          
         });
 

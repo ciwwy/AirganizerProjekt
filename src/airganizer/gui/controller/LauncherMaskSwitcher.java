@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package airganizer.launcher.controller;
+package airganizer.gui.controller;
 
 import java.lang.String;
 import java.util.HashMap;
@@ -13,21 +13,21 @@ import javafx.scene.Parent;
  *
  * @author pat
  */
-public class MaskSwitcher {
+public class LauncherMaskSwitcher {
     
     // Neue Hashmap erzeugen
     private static Map<String, Parent> allViews
             = new HashMap<>();
     
     // Adresse des Controller-Objekts
-    private static LauncherMaskController LMC;
+    private static LauncherFrame LMC;
     
     
-    public static void setReference (LauncherMaskController LMContr){
+    public static void setReference (LauncherFrame LMContr){
         LMC = LMContr;
     }
     
-    public static LauncherMaskController getReference(){
+    public static LauncherFrame getReference(){
         return LMC;
     }
     

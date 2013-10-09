@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -12,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
-public class FlugSuchenController {
+public class FlugSuchenController implements Initializable{
 
     @FXML
     private ResourceBundle resources;
@@ -54,8 +55,8 @@ public class FlugSuchenController {
     private TextField txt_Datum;
 
 
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         assert btn_Extras != null : "fx:id=\"btn_Extras\" was not injected: check your FXML file 'FlugSuchen.fxml'.";
         assert btn_FlugSuchen != null : "fx:id=\"btn_FlugSuchen\" was not injected: check your FXML file 'FlugSuchen.fxml'.";
         assert btn_KundenDaten != null : "fx:id=\"btn_KundenDaten\" was not injected: check your FXML file 'FlugSuchen.fxml'.";
@@ -72,7 +73,7 @@ public class FlugSuchenController {
 
             @Override
             public void handle(ActionEvent t) {
-                  HauptmenueController.switchMask("m_KundenDaten");
+                  HauptmenueController.getInstance().setKundenDaten();
             }          
         });
        

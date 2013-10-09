@@ -1,10 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package airganizer.launcher.controller;
+package airganizer.gui.controller;
 
+import airganizer.dba.DBConnection;
+import airganizer.dba.DBTest;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,15 +15,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-import airganizer.mysql.*;
 
 /**
  * FXML Controller class
+ * Config-Maske
  *
  * @author pat
  */
 
-public class ConfigMaskController implements Initializable {
+public class LauncherConfig implements Initializable {
 
                
         @FXML
@@ -69,7 +68,18 @@ public class ConfigMaskController implements Initializable {
         assert myAnchorPane != null : "fx:id=\"myAnchorPane\" was not injected: check your FXML file 'ConfigMask.fxml'.";
         
         
-        //onAction Listeners
+        // Aktuelle Konfigurationsdaten laden
+        Map configList = DBConnection.getProperties();
+        
+        // Textfelder belegen       
+        txtAddress.setText((String) configList.get("Adresse"));
+        txtDBName.setText((String) configList.get("Name"));
+        txtUsername.setText((String) configList.get("User"));
+        txtPwd.setText((String) configList.get("Passwort"));
+        
+        
+        
+        //// Button onAction Listeners ////
         
         //Connect Button
         btnConnect.setOnAction(new EventHandler<ActionEvent>(){
@@ -89,10 +99,10 @@ public class ConfigMaskController implements Initializable {
                 Boolean connected = dbtest.test(address, dbname, dbuser, dbpwd);
                 
                 // Ergebnis anzeigen
-                MaskSwitcher.getReference().connectionStatus(connected);
+                LauncherFrame.getInstance().connectionStatus(connected);
                 
                 // Bei Erfolg, neue Werte in Properties-Datei speichern
-                if(true){
+                if(connected){
                     DBConnection.setProperties(address, dbname, dbuser, dbpwd);
                 }
  
@@ -107,7 +117,8 @@ public class ConfigMaskController implements Initializable {
             @Override
             public void handle(ActionEvent e){
                 
-                MaskSwitcher.getReference().switchMask("login");
+                LauncherFrame.getInstance().setLoginMask();
+                System.out.println("BACK BUTTON PRESSED");
                 
                 
             }

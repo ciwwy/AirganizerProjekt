@@ -1,6 +1,6 @@
-package airganizer.mysql.request;
+package airganizer.dba.select;
 
-import airganizer.mysql.DBConnection;
+import airganizer.dba.DBConnection;
 import java.util.List;
 
 /**

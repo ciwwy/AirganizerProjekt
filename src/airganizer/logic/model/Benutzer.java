@@ -1,4 +1,4 @@
-package airganizer.model;
+package airganizer.logic.model;
 
 /**
  *

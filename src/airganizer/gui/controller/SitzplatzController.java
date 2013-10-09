@@ -5,10 +5,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 
-public class SitzplatzController {
+public class SitzplatzController implements Initializable{
 
     @FXML
     private ResourceBundle resources;
@@ -23,8 +24,8 @@ public class SitzplatzController {
     private Button btn_Zurueck;
 
 
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         assert btn_Weiter != null : "fx:id=\"btn_Weiter\" was not injected: check your FXML file 'Sitzplatz.fxml'.";
         assert btn_Zurueck != null : "fx:id=\"btn_Zurueck\" was not injected: check your FXML file 'Sitzplatz.fxml'.";
 
@@ -33,7 +34,7 @@ public class SitzplatzController {
 
             @Override
             public void handle(ActionEvent t) {
-                  HauptmenueController.switchMask("m_Extras");
+                  HauptmenueController.getInstance().setExtras();
             }          
         });
         
@@ -41,7 +42,7 @@ public class SitzplatzController {
 
             @Override
             public void handle(ActionEvent t) {
-                  HauptmenueController.switchMask("m_KundenDaten");
+                  HauptmenueController.getInstance().setKundenDaten();
             }          
         });
     }

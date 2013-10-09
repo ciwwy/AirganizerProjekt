@@ -5,12 +5,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
-public class KundenDatenController {
+public class KundenDatenController implements Initializable{
 
     @FXML
     private ResourceBundle resources;
@@ -55,8 +56,8 @@ public class KundenDatenController {
     private Label lb_msg;
 
 
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         assert btn_weiter != null : "fx:id=\"btn_weiter\" was not injected: check your FXML file 'KundenDaten.fxml'.";
         assert btn_zurueck != null : "fx:id=\"btn_zurueck\" was not injected: check your FXML file 'KundenDaten.fxml'.";
         assert txtfld_email != null : "fx:id=\"txtfld_email\" was not injected: check your FXML file 'KundenDaten.fxml'.";
@@ -78,7 +79,7 @@ public class KundenDatenController {
             @Override
             public void handle(ActionEvent t) {
                if(checkText())
-                  HauptmenueController.switchMask("m_Sitzplatz");
+                  HauptmenueController.getInstance().setSitzplatz();
             }          
         });
 
@@ -87,7 +88,7 @@ public class KundenDatenController {
 
             @Override
             public void handle(ActionEvent t) {
-                  HauptmenueController.switchMask("m_FlugSuchen");
+                  HauptmenueController.getInstance().setFlugsuche();
             }          
         });
     }

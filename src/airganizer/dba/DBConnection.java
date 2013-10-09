@@ -1,10 +1,12 @@
-package airganizer.mysql;
+package airganizer.dba;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -24,6 +26,7 @@ public class DBConnection {
     protected static String DBPWD;
     
     // Allgemeine Variablen
+    protected static final String CONFIG_PROP= "mysqlconfig.properties";
     protected Connection con = null;
     protected Statement sta = null;
     protected List queryResultSet = new LinkedList();
@@ -51,14 +54,14 @@ public class DBConnection {
      // Properties-Datei auslesen 
      // (Klassenmethode)
      
-     public static boolean getProperties(){
+     public static boolean loadProperties(){
          
          Properties mysqlprop = new Properties();
          
          try {
             
             // Properties-Datei laden
-            mysqlprop.load(DBConnection.class.getResourceAsStream("mysqlconfig.properties"));
+            mysqlprop.load(DBConnection.class.getResourceAsStream(CONFIG_PROP));
                     
            
             // Werte auslesen
@@ -95,7 +98,7 @@ public class DBConnection {
             
             
             // Werte speichern
-            mysqlprop.store(new FileOutputStream("mysqlconfig.properties"), null);
+            mysqlprop.store(new FileOutputStream(CONFIG_PROP), null);
             
             
          } catch (IOException ex) {
@@ -105,6 +108,37 @@ public class DBConnection {
          
          
          return true;
+     }
+     
+     
+     
+     // Properties-Datei auslesen 
+     // (Klassenmethode)
+     
+     public static Map<String,String> getProperties(){
+         
+         Properties mysqlprop = new Properties();
+         Map<String, String> configMap = new HashMap<>();
+         
+         try {
+            
+            // Properties-Datei laden
+            mysqlprop.load(DBConnection.class.getResourceAsStream(CONFIG_PROP));
+                    
+            // Werte auslesen
+            configMap.put("Adresse", mysqlprop.getProperty("ADDRESS"));
+            configMap.put("Name", mysqlprop.getProperty("DBNAME"));
+            configMap.put("User", mysqlprop.getProperty("DBUSER"));
+            configMap.put("Passwort", mysqlprop.getProperty("DBPWD"));
+                       
+        
+        } catch (IOException ex){
+            System.err.println(ex);
+            return null;
+        }
+         
+         
+         return configMap;
      }
      
      
