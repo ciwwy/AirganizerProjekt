@@ -46,40 +46,7 @@ public class SitzBusinessClassController implements Initializable{
         sitzgruen = SitzplatzController.getInstance().getSitzgruen();
         sitzblau = SitzplatzController.getInstance().getSitzblau();
     
-            //Sitzplätze generieren
-            for( int i=0; i< 18; i++){
-            
-                for (int j = 0; j < 10; j++) {
-                    if (j!=2 && j!=7) 
-                    {
-                        //erzeugt das Bild
-                        final ImageView sitz = new ImageView();
-                        sitz.setFitWidth(30);
-                        sitz.setPreserveRatio(true);
-                        sitz.setSmooth(true);
-                        sitz.setCache(true);
-                        
-                        //zeigt SitzBelegung an      
-                        if(Belegung())
-                      sitz.setImage(sitzrot);  
-                        else
-                            sitz.setImage(sitzgruen); 
-                     
+        SitzplatzController.getInstance().sitzplatzGeneration(gridpane, 10, 10, 7, 35);
 
-                          gridpane.add(sitz,i,j);
-                          sitz.setId("Sitz"+i+j);
-
-                          //Belegung ändern
-                          sitz.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                @Override
-                                public void handle(MouseEvent e) 
-                                  {
-                                          sitz.setImage(sitzblau); 
-                                          System.out.println(sitz.getId());
-                                  }
-                            });
-                     }             
-                   }
-            }
     }
 }

@@ -10,12 +10,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="airganizer.gui.controller.buchen.SitzFirstClassController">
   <children>
-    <ImageView fitHeight="375.5887408983094" fitWidth="1005.0" layoutX="115.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="375.5887408983094" fitWidth="1005.0" layoutX="96.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@/airganizer/gui/images/airbus_firstclass.jpg" />
+        <Image url="@../../images/airbus_firstclass.jpg" />
       </image>
     </ImageView>
-    <GridPane fx:id="gridpane" layoutX="651.0" layoutY="64.0" prefHeight="265.0" prefWidth="290.0">
+    <GridPane fx:id="gridpane" layoutX="633.0" layoutY="67.0" prefHeight="265.0" prefWidth="290.0">
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="69.0" minWidth="10.0" prefWidth="63.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.0" minWidth="10.0" prefWidth="66.0" />

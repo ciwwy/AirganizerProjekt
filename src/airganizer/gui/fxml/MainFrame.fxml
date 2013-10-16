@@ -12,9 +12,9 @@
   <children>
     <BorderPane fx:id="mainBorderPane" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
-        <Pane id="footer" prefHeight="75.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+        <Pane id="footer" prefHeight="35.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
           <children>
-            <Text fx:id="text_BenutzerInfo" layoutX="598.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BenutzerInfo" textAlignment="CENTER" />
+            <Text fx:id="text_BenutzerInfo" layoutX="598.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BenutzerInfo" textAlignment="CENTER" />
           </children>
           <stylesheets>
             <URL value="@Stylesheet.css" />
@@ -30,11 +30,11 @@
         </Pane>
       </center>
       <top>
-        <Pane id="header" maxHeight="-1.0" maxWidth="-1.0" prefHeight="125.0" prefWidth="1280.0">
+        <Pane id="header" maxHeight="-1.0" maxWidth="-1.0" prefHeight="85.0" prefWidth="1280.0">
           <children>
-            <Text layoutX="204.0" layoutY="57.0" scaleX="5.898268146190714" scaleY="5.5376413364124835" strokeType="OUTSIDE" strokeWidth="0.0" text="Airganizer">
+            <Text layoutX="184.0" layoutY="50.0" scaleX="5.1296966259414685" scaleY="4.455746172606663" strokeType="OUTSIDE" strokeWidth="0.0" text="Airganizer">
               <font>
-                <Font name="System Bold" size="12.0" />
+                <Font name="System Bold" size="11.0" />
               </font>
             </Text>
           </children>

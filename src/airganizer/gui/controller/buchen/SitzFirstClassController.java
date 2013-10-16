@@ -53,7 +53,7 @@ public class SitzFirstClassController implements Initializable{
         sp = SitzplatzController.getInstance().getSitzplan();
         
        
-        SitzplatzController.getInstance().sitzplatzGeneration(gridpane, 5, 8);
+        SitzplatzController.getInstance().sitzplatzGeneration(gridpane, 5, 8, 5, 37);
            
     }
     

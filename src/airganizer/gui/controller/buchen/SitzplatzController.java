@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -304,7 +305,7 @@ public class SitzplatzController implements Initializable{
      }
      
      //Sitzplätze generieren
-     public void sitzplatzGeneration(GridPane gridpane, int spalten, int zeilen){ 
+     public void sitzplatzGeneration(GridPane gridpane, int spalten, int zeilen, int luecke, int groesse){ 
          
          
          Integer counter = 0;
@@ -313,27 +314,36 @@ public class SitzplatzController implements Initializable{
             for( int i=0; i< spalten; i++){
             
                 for (int j = 0; j < zeilen; j++) {
-                    if (j!=2 && j!=5) 
+                    if (j!=2 && j!=luecke) 
                     {
                         //erzeugt das Bild
                         final ImageView sitz = new ImageView();
-                        sitz.setFitWidth(40);
+                        sitz.setFitWidth(groesse);
                         sitz.setPreserveRatio(true);
                         sitz.setSmooth(true);
                         sitz.setCache(true);
+                        
+                        final Label sitzNr = new Label();
                         
                         // Zählt counter hoch
                         counter++;
                         
                         //zeigt SitzBelegung an      
                         if(sp.isBelegt(counter))
-                      sitz.setImage(sitzrot);  
+                        {
+                         sitz.setImage(sitzrot); 
+                         sitz.setId(counter+"b");
+                        }
                         else
+                        {
                             sitz.setImage(sitzgruen); 
-                     
+                            sitz.setId(counter+"f");
+                        }
+
 
                           gridpane.add(sitz,i,j);
-                          sitz.setId(counter+"");
+                          gridpane.add(sitzNr,i,j);
+                          sitzNr.setText(counter +"");
 
                           //Belegung ändern
                           sitz.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -344,13 +354,23 @@ public class SitzplatzController implements Initializable{
                                           // anstatt der FXML-ID, evtl neue Klasse (extends ImageView) 
                                           // mit get/set Methode für Sitzplatznummer + Belegtstatus?
                                       
-                                          Integer sitzid = Integer.parseInt(sitz.getId());
+                                          //Integer sitzid = Integer.parseInt(sitz.getId());
                                           
-                                          if(sp.isBelegt(sitzid)==false){
-                                              sitz.setImage(sitzblau); 
-                                          }
+                                          String sitzID = sitz.getId();
+                                          String lastChar = sitzID.substring(sitzID.length()-1, sitzID.length());
+                                          String pureID = sitzID.substring(0, sitzID.length()-1);
                                           
-                                          System.out.println(sitz.getId());
+                                          switch (lastChar){
+                                              case "b": break;
+                                              case "f": sitz.setImage(sitzblau); 
+                                                        sitz.setId(pureID+"r");
+                                                        break;
+                                              case "r": sitz.setImage(sitzgruen); 
+                                                        sitz.setId(pureID+"f");
+                                                        break;
+                                              default:  break;
+                                          }                        
+                                          System.out.println(pureID);
                                   }
                             });
                      }             
