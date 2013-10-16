@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="airganizer.gui.controller.buchen.SitzplatzController">
+  <children>
+    <BorderPane prefHeight="520.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <BorderPane fx:id="SitzplatzBorderpane" prefHeight="200.0" prefWidth="200.0">
+          <bottom>
+            <Pane prefHeight="38.0" prefWidth="1280.0">
+              <children>
+                <Button fx:id="btn_Zurueck" layoutX="92.0" layoutY="9.0" mnemonicParsing="false" text="Zurück" />
+                <Button fx:id="btn_Weiter" layoutX="1134.0" layoutY="9.0" mnemonicParsing="false" text="Weiter" />
+                <Button fx:id="btn_reset" layoutX="582.0" layoutY="9.0" mnemonicParsing="false" prefWidth="117.0" text="Zurücksetzen" />
+              </children>
+            </Pane>
+          </bottom>
+          <top>
+            <Pane prefHeight="88.0" prefWidth="1280.0">
+              <children>
+                <Pane layoutX="612.0" layoutY="-3.0" prefHeight="88.0" prefWidth="653.0">
+                  <children>
+                    <ImageView fx:id="img_firstClass" fitHeight="65.0273011620365" fitWidth="174.0" layoutX="27.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@/airganizer/gui/images/airbus_firstclass.jpg" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="img_businessClass" fitHeight="66.00001525878906" fitWidth="131.24660656726257" layoutX="201.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@/airganizer/gui/images/airbus_businessclass.jpg" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="img_economyClass1" fitHeight="68.11787443685326" fitWidth="81.80365753173828" layoutX="332.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@/airganizer/gui/images/airbus_economyclass1.jpg" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="img_economyClass2" fitHeight="70.80391693115234" fitWidth="238.23245263247495" layoutX="414.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@/airganizer/gui/images/airbus_economyclass2.jpg" />
+                      </image>
+                    </ImageView>
+                  </children>
+                </Pane>
+                <Label layoutX="465.0" layoutY="20.0" prefHeight="48.9609375" prefWidth="174.0" text="Klasse auswählen:">
+                  <font>
+                    <Font name="System Bold" size="20.0" />
+                  </font>
+                </Label>
+              </children>
+            </Pane>
+          </top>
+        </BorderPane>
+      </center>
+      <top>
+        <Pane prefHeight="66.0" prefWidth="1186.0">
+          <children>
+            <Line endX="940.0" endY="0.0" layoutX="156.0" layoutY="33.0" startX="-40.0" />
+            <Button fx:id="btn_FlugSuchen" layoutX="116.0" layoutY="22.0" mnemonicParsing="false" prefWidth="105.0" text="Flug suchen" />
+            <Button id="button" fx:id="btn_Sitzplatz" layoutX="541.0" layoutY="22.0" mnemonicParsing="false" text="Sitzplatz suchen" />
+            <Button fx:id="btn_KundenDaten" layoutX="332.0" layoutY="22.0" mnemonicParsing="false" prefWidth="105.0" text="Kunden Daten" />
+            <Button fx:id="btn_Extras" layoutX="759.0" layoutY="22.0" mnemonicParsing="false" prefWidth="105.0" text="Extras" />
+            <Button layoutX="992.0" layoutY="22.0" mnemonicParsing="false" prefWidth="105.0" text="Bestätigung" />
+          </children>
+        </Pane>
+      </top>
+    </BorderPane>
+  </children>
+  <stylesheets>
+    <URL value="@../MainStylesheet.css" />
+  </stylesheets>
+</AnchorPane>

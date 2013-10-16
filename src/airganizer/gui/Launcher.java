@@ -1,13 +1,10 @@
 package airganizer.gui;
 
 import airganizer.gui.controller.LauncherFrame;
-import airganizer.gui.controller.LauncherLogin;
-import airganizer.gui.controller.LauncherMaskSwitcher;
-import airganizer.logic.model.Benutzer;
-import airganizer.dba.select.LoginCheck;
+import airganizer.logic.models.Benutzer;
+import airganizer.logic.LoginAuthentification;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,9 +13,9 @@ import javafx.stage.Stage;
 
 
 /**
- * Airganizer Launcher 2013
- * @author Patrick Hummel
- * @version 0.1
+ * Airganizer 2013
+ * @author Patrick, Kaiwen, Philipp
+ * @version 0.3
  * 
  */
 
@@ -38,17 +35,17 @@ public class Launcher extends Application {
     private final String LAUNCHER_FRAME = "LauncherFrame.fxml";
     
     // Flugbuchen FXML-Dateien
-    private final String MAIN_MENU = "Hauptmenue.fxml";
+    private final String MAIN_FRAME = "MainFrame.fxml";
     
     
     // Weitere FXML-Dateien...
     // private final String VERWALTEN_FLUGANLEGEN = "xxx.fxml";
     
     // Eigenschaften des Fensters
-    final String WINDOW_TITLE_LAUNCHER = "Airganizer v.0.1 - Launcher";
-    final String WINDOW_TITLE_BUCHEN = "Airganizer v.0.1 - Flug buchen";
-    final String WINDOW_TITLE_VERWALTEN = "Airganizer v.0.1 - Flüge verwalten";
-    final String WINDOW_TITLE_ADMIN = "Airganizer v.0.1 - Benutzer administrieren";
+    final String WINDOW_TITLE_LAUNCHER = "Airganizer v.0.3 - Launcher";
+    final String WINDOW_TITLE_BUCHEN = "Airganizer v.0.3 - Flug buchen";
+    final String WINDOW_TITLE_VERWALTEN = "Airganizer v.0.3 - Flüge verwalten";
+    final String WINDOW_TITLE_ADMIN = "Airganizer v.0.3 - Benutzer administrieren";
     
     
     //// Instanz erstellen und Zugriff ermöglichen ////
@@ -148,7 +145,7 @@ public class Launcher extends Application {
         try {
             
             // MainMenu laden
-            szeneWechseln(FXML_PATH + MAIN_MENU, WINDOW_TITLE_BUCHEN);
+            szeneWechseln(FXML_PATH + MAIN_FRAME, WINDOW_TITLE_BUCHEN);
              
         } catch (Exception e){
             
@@ -161,27 +158,26 @@ public class Launcher extends Application {
     
     
     // Benutzerauthetifizierung
-    public boolean loginVersuch(String uid, String pwd){
+    public boolean loginVersuch(String name, String pwd){
         
-        LoginCheck login = new LoginCheck();
-        List l = login.start(uid, pwd);
-        
-        if(l != null){
-            benutzer = new Benutzer (l.get(1).toString(), l.get(2).toString(), l.get(3).toString());
-            
-            
-            System.out.println("Login daten erhalten");
-            // Szenenwechel bei erfolg
+        benutzer = LoginAuthentification.getUser(name, pwd);
+        if(benutzer!=null){
+            System.out.println("Angemeldeter Benutzer: "+benutzer.getVorname()+", "+benutzer.getNachname()+" ("+benutzer.getName()+") - "+benutzer.getType());
+
             flugbuchen();
-            
-            return true;
-            
+            System.out.println("LoginVersuch erfolgreich");
+        return true;
+        } else {
+             System.out.println("LoginVersuch fehlgeschlagen!");
         }
         
-        System.out.println("Das war nix...");
         return false;
     }
     
+    
+    public Benutzer getUser(){
+        return benutzer;
+    }
     
 
     /**

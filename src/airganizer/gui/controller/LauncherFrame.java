@@ -68,7 +68,7 @@ public class LauncherFrame implements Initializable {
         
         //// Deklaration der Konstanten ////
         // Pfad der FXML-Dateien
-        private final String FXML_PATH = "/airganizer/gui/fxml/";
+        private final String FXML_PATH = "/airganizer/gui/fxml/launcher/";
         
         // Name der FXML-Dateien
         private final String LAUNCHER_LOGIN = "LauncherLogin.fxml";
@@ -141,10 +141,8 @@ public class LauncherFrame implements Initializable {
             });
 
             //Verbindung zur DB Überprüfen
-            DBTest dbtest = new DBTest();
-            connectionStatus(dbtest.test());
-           
-
+            connectionStatus(DBTest.test());
+            
     }
     
      
@@ -174,7 +172,7 @@ public class LauncherFrame implements Initializable {
      
      private Parent loadFXML(String fxml){
          
-         Parent subMask;
+        Parent subMask;
          
          // FXMLLoader erzeugen
         FXMLLoader fLoader = new FXMLLoader();

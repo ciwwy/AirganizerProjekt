@@ -4,8 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -18,37 +16,62 @@ public class DBConnection {
         
     
     // Verbindungskonfigurationen
-    protected static String DRIVER = "com.mysql.jdbc.Driver";
-    protected static String PATH = "jdbc:mysql://";
-    protected static String ADDRESS;
-    protected static String DBNAME;
-    protected static String DBUSER;
-    protected static String DBPWD;
+    private static String DRIVER = "com.mysql.jdbc.Driver";
+    private static String PATH = "jdbc:mysql://";
+    private static String ADDRESS;
+    private static String DBNAME;
+    private static String DBUSER;
+    private static String DBPWD;
     
     // Allgemeine Variablen
-    protected static final String CONFIG_PROP= "mysqlconfig.properties";
-    protected Connection con = null;
-    protected Statement sta = null;
-    protected List queryResultSet = new LinkedList();
+    private static final String CONFIG_PROP= "mysqlconfig.properties";
        
     
-    public DBConnection(){
-                
-        // SQL-Treiber laden
-        
+    // Generiert eine Verbindung zur DB
+    // Lädt die Treiber
+    
+    public static Connection connect(){
+                      
         try {
-
-          Class.forName(DRIVER).newInstance();
-          System.out.println("LOAD SUCCESSFUL!");
+            
+            Connection con;
+            
+            // MySQL-Treiber laden
+            Class.forName(DRIVER).newInstance();
+            
+            // Verbindung zur Datenbank aufbauen
+            con = DriverManager.getConnection(PATH + ADDRESS + "/"+ DBNAME, DBUSER, DBPWD);
+            
+            System.out.println("Connection connected...");
+            
+            return con;
 
         }
-        catch(Exception e) {
+        catch(ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
 
-          System.err.println("SQLException: " + e.getMessage());
+            System.err.println("SQLException: " + e.getMessage());
+            
+            return null;
 
         }
         
      }
+    
+    
+    public static void disconnect(Connection con){
+                 
+            // Verbindung beenden
+            if (con != null){
+                
+                try {
+                        con.close();
+                        System.out.println("Connection disconnected"); 
+                        
+                } catch (Exception e){
+                
+                }
+            }
+    }
     
 
      // Properties-Datei auslesen 
@@ -139,86 +162,6 @@ public class DBConnection {
          
          
          return configMap;
-     }
-     
-     
-     // SQL-Verbindung aufbauen + Abfrage ausführen
-     // Privat, aber vererbbar (protected)
-     
-     protected List executeQuery(String statement){
+     }    
          
-                          
-         try {
-            
-            // Verbindung zur Datenbank
-            con = DriverManager.getConnection(PATH + ADDRESS + "/"+ DBNAME, DBUSER, DBPWD);
-            
-            // Statement
-            sta = con.createStatement();
-            
-            // Ausführen und zurückgeben
-                     
-            ResultSet result;
-            result = sta.executeQuery(statement);
-            
-           
-            if(result!=null) {
-                
-                //Spaltenüberschriften (Metadaten)
-                
-                ResultSetMetaData rsmd = result.getMetaData();
-                
-                //Abfrageergebnisse ausgeben
-                
-                //result.beforeFirst();
-                
-                while(result.next()) {
-                     
-                    for(int column=1; column<=rsmd.getColumnCount(); column++) {
-                        queryResultSet.add(result.getObject(column));                     
-
-                    } 
-
-                }
-               
-                    result.close();
-                }
-            
-
-        return queryResultSet;
-            
-            
-        } catch(SQLException e)
-        
-        { 
-            System.err.println("SQLException: " + e.getMessage());
-            return null;
-            
-        } finally {
-            
-            // Abfrage beenden
-            if(sta!=null){
-                try {sta.close();} catch(Exception e) {}
-            }
-            
-            // Verbindung beenden
-            if (con != null){
-                try{
-                        con.close();
-                        System.out.println("Connection disconnected"); 
-                        
-                } catch (Exception e){}
-            }
-            
-             
-        }
-        
-        
-       
-     } 
-         
-     
-     
-     
-    
 }

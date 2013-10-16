@@ -4,98 +4,75 @@
  */
 package airganizer.dba;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
  *
  * @author pat
  */
-public class DBTest extends DBConnection{
+public class DBTest{
     
     
-    public DBTest(){
-        
-        // Ausgabe von Verbindungsinformationen in der Konsole
-        System.out.println("Treiber: " + DRIVER);
-        System.out.println("Pfad: " + PATH);
-        System.out.println("Address: " + ADDRESS);
-        System.out.println("Database: " + DBNAME);
-        System.out.println("Username: " + DBUSER);
-        System.out.println("Password: " + DBPWD);
-        
-    }
+     // Verbindungskonfigurationen
+     private static String DRIVER = "com.mysql.jdbc.Driver";
+     private static String PATH = "jdbc:mysql://";
     
-    
-    // Methode zum Testen der Verbindung mit eingelesenen Werten
-    public boolean test(){
-        
+      
+     // Erzeugt eine Test-Verbindung
+     
+     public static Boolean test(){
+                      
         try {
             
-            //Verbindung zur Datenbank
-            con = DriverManager.getConnection(PATH + ADDRESS + "/"+ DBNAME, DBUSER, DBPWD);
-            System.out.println("CONNECTION SUCCESSFUL! :D:D:D");
+            Connection con;
             
-        } catch(Exception e)
-        
-        { 
-            System.err.println("SQLException: " + e.getMessage());
-            return(false);
-        
-        
-        } finally {
+            // Neue Verbindung
+            con = DBConnection.connect();
             
-            //Verbindung beenden
+            // Schließt Verbindung
+            DBConnection.disconnect(con);
             
-            if (con != null){
-                
-                try {
-                    
-                    con.close();
-                    System.out.println("Connection disconnected"); 
-                
-                } catch (Exception e){}
-            }
+            return true;
+
         }
-      
-     return(true);
-     
-     } 
-    
-    
-    
-    // Method-Overload (Alternative Testmethode für Konfigurationstests)
-    public boolean test(String address, String dbname, String dbuser, String dbpwd){
-        
-        try {
-            
-            //Verbindung zur Datenbank
-            con = DriverManager.getConnection(PATH + address + "/"+ dbname, dbuser, dbpwd);
-            System.out.println("CONNECTION SUCCESSFUL! :D:D:D");
-            
-        } catch(Exception e)
-        
-        { 
+        catch(Exception e) {
+
             System.err.println("SQLException: " + e.getMessage());
-            return(false);
-        
-        
-        } finally {
             
-            //Verbindung beenden
-            
-            if (con != null){
-                
-                try {
-                    
-                    con.close();
-                    System.out.println("Connection disconnected"); 
-                
-                } catch (Exception e){}
-            }
+            return false;
+
         }
-      
-     return(true);
-     
+        
      }
-    
+        // Erzeugt eine Test-Verbindung mit eigenen Verbindungsdaten
+     
+     public static Boolean test(String address, String dbname, String dbuser, String dbpwd){
+                      
+        try {
+            
+            Connection con;
+            
+            // MySQL-Treiber laden
+            Class.forName(DRIVER).newInstance();
+            
+            // Verbindung zur Datenbank aufbauen
+            con = DriverManager.getConnection(PATH + address + "/"+ dbname, dbuser, dbpwd);
+            
+            DBConnection.disconnect(con);
+            
+            return true;
+
+        }
+        
+        catch(Exception e) {
+
+            System.err.println("SQLException: " + e.getMessage());
+            
+            return false;
+
+        }
+        
+     }
+        
 }
