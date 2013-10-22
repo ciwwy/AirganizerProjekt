@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
 <?import java.net.*?>
+<?import java.util.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -13,11 +13,15 @@
   <children>
     <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-        <VBox id="" prefHeight="160.0" prefWidth="362.0" BorderPane.alignment="TOP_LEFT">
+        <VBox id="" onKeyReleased="#keyEnter" prefHeight="160.0" prefWidth="362.0" BorderPane.alignment="TOP_LEFT">
           <children>
             <VBox alignment="BOTTOM_LEFT" prefHeight="83.00009999999747" prefWidth="278.0">
               <children>
-                <Text font="$x1" strokeType="OUTSIDE" strokeWidth="0.0" text="Airganizer v.0.1" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Airganizer v.0.1">
+                  <font>
+                    <Font size="12.0" />
+                  </font>
+                </Text>
                 <Text scaleX="1.0031734932795173" scaleY="1.1275118629404361" strokeType="OUTSIDE" strokeWidth="0.0" text="Bitte melden Sie sich an.">
                   <font>
                     <Font size="16.0" />

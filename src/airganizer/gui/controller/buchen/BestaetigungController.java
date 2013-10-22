@@ -1,5 +1,6 @@
 package airganizer.gui.controller.buchen;
 
+import airganizer.gui.Launcher;
 import airganizer.gui.controller.MainFrame;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,8 +35,7 @@ public class BestaetigungController implements Initializable{
 
             @Override
             public void handle(ActionEvent t) {
-                  // -> Alternative: Hauptmenü als Frame, Center leer...
-                  //HauptmenueController.switchMask("m_Menue");
+                  Launcher.getInstance().getflugBuchen();
             }          
         });
         

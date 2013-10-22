@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class Sitzplan {
     
+
      List<Integer> belegtList = new ArrayList<>();
     
      public void load(Integer flugnr){
@@ -60,7 +61,7 @@ public class Sitzplan {
         
     }
      
-     
+
      
      public Boolean isBelegt(Integer SitzplatzNr){
          

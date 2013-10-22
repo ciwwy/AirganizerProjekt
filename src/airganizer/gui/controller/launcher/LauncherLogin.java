@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -35,7 +37,15 @@ public class LauncherLogin implements Initializable {
     @FXML
     private TextField txtUser;
     
-    
+     
+     @FXML
+    void keyEnter(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER){
+              System.out.println("Login Button pressed.");
+              Launcher.getInstance().loginVersuch(txtUser.getText(), txtPwd.getText());
+        }
+        
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -55,9 +65,6 @@ public class LauncherLogin implements Initializable {
                         Launcher.getInstance().loginVersuch(txtUser.getText(), txtPwd.getText());
             }
         });
+            
     }
-    
-    
-    
-
 }

@@ -157,7 +157,7 @@ public class Launcher extends Application {
     }
     
     
-    // Benutzerauthetifizierung
+    // Benutzerauthentifizierung
     public boolean loginVersuch(String name, String pwd){
         
         benutzer = LoginAuthentification.getUser(name, pwd);
@@ -174,6 +174,9 @@ public class Launcher extends Application {
         return false;
     }
     
+    public void getflugBuchen(){
+        flugbuchen();
+    }
     
     public Benutzer getUser(){
         return benutzer;

@@ -4,6 +4,8 @@ import airganizer.gui.controller.MainFrame;
 import airganizer.logic.Sitzplan;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -63,6 +66,10 @@ public class SitzplatzController implements Initializable{
     @FXML
     private Button btn_reset;
     
+    @FXML
+    private ListView<String> listview;
+    
+    ObservableList<String> rerservList=FXCollections.observableArrayList();    
     
     private static SitzplatzController instance;
     
@@ -118,12 +125,11 @@ public class SitzplatzController implements Initializable{
         assert img_economyClass2 != null : "fx:id=\"img_economyClass2\" was not injected: check your FXML file 'Sitzplatz.fxml'.";
         assert img_firstClass != null : "fx:id=\"img_firstClass\" was not injected: check your FXML file 'Sitzplatz.fxml'.";
         assert btn_reset != null : "fx:id=\"btn_reset\" was not injected: check your FXML file 'Sitzplatz.fxml'.";
+        assert listview != null : "fx:id=\"listview\" was not injected: check your FXML file 'Sitzplatz.fxml'.";
 
-         //Parent  p = MaskSwitcher.getView("m_SitzFirstClass"); 
-         //SitzplatzBorderpane.setCenter(p);
+       
         
-        
-        
+       
         // Sitzplan für FlugNr 25 laden 
         // Später FlugNr je nach auswahl
         
@@ -277,7 +283,7 @@ public class SitzplatzController implements Initializable{
          return sp;
      }
     
-    
+
     // Methode zum laden von Parent-Objekten aus FXML
      
      private Parent loadFXML(String fxml){
@@ -302,6 +308,11 @@ public class SitzplatzController implements Initializable{
             System.err.println(fxml + " --> Konnte nicht geladen werden... sorry...");
             return null;
         }
+     }
+     
+       public void fillReservierung(String sitzID){
+         rerservList.add(sitzID);
+         listview.setItems(rerservList);
      }
      
      //Sitzplätze generieren
@@ -364,6 +375,7 @@ public class SitzplatzController implements Initializable{
                                               case "b": break;
                                               case "f": sitz.setImage(sitzblau); 
                                                         sitz.setId(pureID+"r");
+                                                        fillReservierung(pureID);
                                                         break;
                                               case "r": sitz.setImage(sitzgruen); 
                                                         sitz.setId(pureID+"f");

@@ -36,6 +36,9 @@ public class MainFrame implements Initializable{
     private Button btn_FlugVerwalten;
     
     @FXML
+    private Button backtoMain;
+    
+    @FXML
     private BorderPane mainBorderPane ;
     
     @FXML
@@ -85,7 +88,8 @@ public class MainFrame implements Initializable{
         assert btn_FlugBuchen != null : "fx:id=\"btn_FlugBuchen\" was not injected: check your FXML file 'Hauptmenue.fxml'.";
         assert btn_FlugVerwalten != null : "fx:id=\"btn_FlugVerwalten\" was not injected: check your FXML file 'Hauptmenue.fxml'.";
         assert text_BenutzerInfo != null : "fx:id=\"text_BenutzerInfo\" was not injected: check your FXML file 'Hauptmenue.fxml'.";
-        
+        assert backtoMain != null : "fx:id=\"backtoMain\" was not injected: check your FXML file 'Hauptmenue.fxml'.";
+       
         // BenutzerInfo laden
         
         Benutzer ben = Launcher.getInstance().getUser();
@@ -119,6 +123,15 @@ public class MainFrame implements Initializable{
             public void handle(ActionEvent e) {
                 setFlugsuche();
                 System.out.println("FLUGSUCHE BUTTON GEDRÜCKT.");
+            }          
+        });
+        
+        backtoMain.setOnAction (new EventHandler<ActionEvent>(){
+
+            @Override
+            public void handle(ActionEvent e) {
+                
+                Launcher.getInstance().getflugBuchen();
             }          
         });
 

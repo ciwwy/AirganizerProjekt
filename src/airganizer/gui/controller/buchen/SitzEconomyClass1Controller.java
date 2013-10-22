@@ -45,7 +45,7 @@ public class SitzEconomyClass1Controller implements Initializable{
         sitzgruen = SitzplatzController.getInstance().getSitzgruen();
         sitzblau = SitzplatzController.getInstance().getSitzblau();
     
-        SitzplatzController.getInstance().sitzplatzGeneration(gridpane, 10, 10, 7, 35);
+        SitzplatzController.getInstance().sitzplatzGeneration(gridpane, 10, 10, 7, 33);
 
             }
     }
